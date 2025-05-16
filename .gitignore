@@ -1,0 +1,5 @@
+data/final/*
+data/processed/*
+data/raw/*
+
+logs/*
