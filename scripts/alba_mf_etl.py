@@ -110,7 +110,7 @@ class ETLPipeline:
 
             # 2. Separar datos en diferentes df
             # LIQUID HYDROCARBONS CACHED
-            df_liquid_hydrocarbons_cached = df_ec_data_alba.iloc[:, 1:11]
+            df_liquid_hydrocarbons_cached = df_ec_data_alba.iloc[:, 0:11]
             df_gas_production = df_ec_data_alba.iloc[:, 12:24]
             df_tank_data = df_ec_data_alba.iloc[:, 27:35]
             df_daily_lifting_data = df_ec_data_alba.iloc[:, 35:38]
@@ -189,10 +189,10 @@ class ETLPipeline:
 
             # 2 Guardar en sqlite para consultas
             conn = sqlite3.connect(self.db_path)
-            df_liquid_hydrocarbons_cached.to_sql('liquid_hydrocarbons_cached', conn, if_exists='replace', index=False)
-            df_gas_production.to_sql('gas_production', conn, if_exists='replace', index=False)
-            df_tank_data.to_sql('tank_data', conn, if_exists='replace', index=False)
-            df_daily_lifting_data.to_sql('daily_lifting_data', conn, if_exists='replace', index=False)
+            df_liquid_hydrocarbons_cached.to_sql('liquid_hydrocarbons_cached', conn, if_exists='replace', index=True, index_label="id")
+            df_gas_production.to_sql('gas_production', conn, if_exists='replace', index=True, index_label="id")
+            df_tank_data.to_sql('tank_data', conn, if_exists='replace', index=True, index_label="id")
+            df_daily_lifting_data.to_sql('daily_lifting_data', conn, if_exists='replace', index=True, index_label="id")
 
             logger.info(f"Datos cargados y guardados en {self.db_path}.")
             
